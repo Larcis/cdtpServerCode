@@ -15,6 +15,12 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
+app.get('/api/all', function (request, response) {
+    DB.find({}, function (err, seras) {
+        response.send(seras);
+    })
+});
+
 app.get('/api/sera/:sera_id', function (request, response) {
     DB.findById(request.params.sera_id).then((sera) => {
         //console.log(sera);
@@ -47,14 +53,22 @@ app.put('/api/sera/:sera_id', function (request, response) {
             sera._id = request.params.sera_id;
             sera.name = `${request.params.sera_id} serası`;
         }
-        if(body.temperature && sera.temperature.length == 30){
-            sera.temperature = []
+        if(body.temperature){
+            if(sera.temperature.length == 30){
+                sera.temperature = [];
+            }
+            sera.temperature.push(body.temperature);
         }
-        if(body.set_point && sera.set_point.length ==  30){
-            sera.set_point = [];
+        if(body.set_point){
+            if(sera.set_point.length == 30){
+                sera.set_point = [];
+            }
+            sera.set_point.push(body.set_point);
+            io.emit("new set point", {
+                set_point: body.set_point,
+                id: request.params.sera_id
+            });
         }
-        body.temperature && (sera.temperature.push(body.temperature));
-        body.set_point && (sera.set_point.push(body.set_point));
         body.is_on && (sera.is_on = body.is_on);
         sera.save();
         response.json({
