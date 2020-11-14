@@ -1,4 +1,4 @@
 "use strict";
 
 exports.PORT = 3000;
-exports.DB_CONNECTION_STRING = "mongodb+srv://uygar:deneme123@cluster0.tzedi.mongodb.net/Cluster0?retryWrites=true&w=majority";
+exports.DB_CONNECTION_STRING = "mongodb://127.0.0.1:27017/?compressors=zlib&gssapiServiceName=mongodb";
