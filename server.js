@@ -42,28 +42,25 @@ app.put('/api/sera/:sera_id', function (request, response) {
     //console.log(body);
     DB.findById(request.params.sera_id).then((sera) => {
         //console.log(sera);
-        if (sera) {
-            body.temperature && (sera.temperature = body.temperature);
-            body.set_point && (sera.set_point = body.set_point);
-            body.is_on && (sera.is_on = body.is_on);
-            sera.save();
-            response.json({
-                sera,
-                info: "Sera güncellendi."
-            });
-        } else {
+        if (!sera) {
             sera = new DB();
-            body.temperature && (sera.temperature = body.temperature);
-            body.set_point && (sera.set_point = body.set_point);
-            body.is_on && (sera.is_on = body.is_on);
             sera._id = request.params.sera_id;
             sera.name = `${request.params.sera_id} serası`;
-            sera.save();
-            response.json({
-                sera,
-                info: "Sera eklendi."
-            });
         }
+        if(body.temperature && sera.temperature.length == 30){
+            sera.temperature = []
+        }
+        if(body.set_point && sera.set_point.length ==  30){
+            sera.set_point = [];
+        }
+        body.temperature && (sera.temperature.push(body.temperature));
+        body.set_point && (sera.set_point.push(body.set_point));
+        body.is_on && (sera.is_on = body.is_on);
+        sera.save();
+        response.json({
+            sera,
+            info: "Sera güncellendi."
+        });
     }).catch((err) => {
         console.log(err);
         response.json({
