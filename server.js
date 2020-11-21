@@ -1,5 +1,7 @@
 "use strict";
 require('dotenv').config()
+
+var cors = require('cors');
 var app = require('express')();
 app.use(cors({
     "origin": "*",
@@ -8,6 +10,7 @@ app.use(cors({
     "optionsSuccessStatus": 204
 }));
 
+var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({
     extended: true
 }));
@@ -15,8 +18,6 @@ app.use(bodyParser.json());
 
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
-var cors = require('cors')
-var bodyParser = require('body-parser');
 const constants = require("./constants");
 const db = require("./db")()
 var DB = require("./sera_model");
