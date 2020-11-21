@@ -15,6 +15,12 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
+
+app.get('/', function (request, response) {
+    response.sendFile(__dirname + '/index.html');
+});
+
+
 app.get('/api/all', function (request, response) {
     DB.find({}, function (err, seras) {
         response.send(seras);
@@ -100,9 +106,16 @@ app.delete('/api/sera/:sera_id', function (request, response) {
 });
 
 io.on('connection', (socket) => {
-    console.log('a user connected');
+    //console.log('a user connected');
+    socket.on('disconnect', () => {
+        //console.log('user disconnected');
+    });
+    socket.on('temperature changed', (data) => {
+        io.emit('temperature changed', data);
+    });
 });
 
-http.listen(process.env.PORT || constants.PORT, function () {
-    console.log(`server basladi!... port: ${process.env.PORT} ${constants.PORT}`);
+let port = process.env.PORT || constants.PORT;
+http.listen(port, function () {
+    console.log(`server basladi!... port: ${port}`);
 });
