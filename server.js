@@ -1,5 +1,5 @@
 "use strict";
-
+require('dotenv').config()
 var app = require('express')();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
@@ -103,6 +103,6 @@ io.on('connection', (socket) => {
     console.log('a user connected');
 });
 
-http.listen(constants.PORT, function () {
+http.listen(process.env.PORT || constants.PORT, function () {
     console.log(`server basladi!... port: ${constants.PORT}`);
 });
