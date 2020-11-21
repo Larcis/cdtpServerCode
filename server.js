@@ -1,14 +1,6 @@
 "use strict";
 require('dotenv').config()
 var app = require('express')();
-var http = require('http').createServer(app);
-var io = require('socket.io')(http);
-var cors = require('cors')
-var bodyParser = require('body-parser');
-const constants = require("./constants");
-const db = require("./db")()
-var DB = require("./sera_model");
-
 app.use(cors({
     "origin": "*",
     "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
@@ -21,6 +13,13 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
+var http = require('http').createServer(app);
+var io = require('socket.io')(http);
+var cors = require('cors')
+var bodyParser = require('body-parser');
+const constants = require("./constants");
+const db = require("./db")()
+var DB = require("./sera_model");
 
 app.get('/', function (request, response) {
     response.sendFile(__dirname + '/index.html');
