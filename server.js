@@ -104,5 +104,5 @@ io.on('connection', (socket) => {
 });
 
 http.listen(process.env.PORT || constants.PORT, function () {
-    console.log(`server basladi!... port: ${constants.PORT}`);
+    console.log(`server basladi!... port: ${process.env.PORT} ${constants.PORT}`);
 });
