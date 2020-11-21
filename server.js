@@ -3,7 +3,7 @@ require('dotenv').config()
 var app = require('express')();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
-
+var cors = require('cors')
 var bodyParser = require('body-parser');
 const constants = require("./constants");
 const db = require("./db")()
@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
-
+app.use(cors())
 
 app.get('/', function (request, response) {
     response.sendFile(__dirname + '/index.html');
