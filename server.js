@@ -12,7 +12,11 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 var http = require('http').createServer(app);
-var io = require('socket.io')(http);
+var io = require('socket.io')(http,{
+    cors: {
+      origin: '*',
+    }
+});
 const constants = require("./constants");
 const db = require("./db")()
 var DB = require("./sera_model");
