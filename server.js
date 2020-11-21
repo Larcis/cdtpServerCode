@@ -3,12 +3,7 @@ require('dotenv').config()
 
 var cors = require('cors');
 var app = require('express')();
-app.use(cors({
-    "origin": "*",
-    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
-    "preflightContinue": false,
-    "optionsSuccessStatus": 204
-}));
+app.use(cors());
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({
