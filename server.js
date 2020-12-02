@@ -2,7 +2,8 @@
 require('dotenv').config()
 
 var cors = require('cors');
-var app = require('express')();
+var express = require('express');
+var app = express();
 app.use(cors());
 
 var bodyParser = require('body-parser');
@@ -11,18 +12,21 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
+app.use('/static', express.static(__dirname+ '/client'))
+
 var http = require('http').createServer(app);
 var io = require('socket.io')(http,{
     cors: {
       origin: '*',
     }
 });
-const constants = require("./constants");
-const db = require("./db")()
-var DB = require("./sera_model");
+const constants = require("./misc/constants");
+const db = require("./misc/db")()
+var DB = require("./misc/sera_model");
+
 
 app.get('/', function (request, response) {
-    response.sendFile(__dirname + '/index.html');
+    response.sendFile(__dirname + '/client/html/index.html');
 });
 
 
@@ -62,6 +66,10 @@ app.put('/api/sera/:sera_id', function (request, response) {
         if (!sera) {
             sera = new DB();
             sera._id = request.params.sera_id;
+        }
+        if(body.name){
+            sera.name = body.name;
+        } else {
             sera.name = `${request.params.sera_id} serası`;
         }
         if(body.temperature){
@@ -75,12 +83,18 @@ app.put('/api/sera/:sera_id', function (request, response) {
                 sera.set_point = [];
             }
             sera.set_point.push(body.set_point);
-            io.emit("new set point", {
+            io.emit("newSetPoint", {
                 set_point: body.set_point,
                 id: request.params.sera_id
             });
         }
-        body.is_on && (sera.is_on = body.is_on);
+        if(body.is_on){
+            sera.is_on = body.is_on;
+            io.emit("isOn", {
+                is_on: body.is_on,
+                id: request.params.sera_id
+            });
+        }
         sera.save();
         response.json({
             sera,
@@ -115,8 +129,8 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         //console.log('user disconnected');
     });
-    socket.on('temperature changed', (data) => {
-        io.emit('temperature changed', data);
+    socket.on('temperatureChanged', (data) => {
+        io.emit('temperatureChanged', data);
     });
 });
 

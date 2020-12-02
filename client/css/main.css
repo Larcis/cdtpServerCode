@@ -1,0 +1,68 @@
+:root {
+    --blue: #3c5e9e;
+    --white: rgba(255,255,255, 0.75);
+    --br: 0px;
+    -moz-user-select: none; 
+    -webkit-user-select: none; 
+    -ms-user-select:none;
+     user-select:none;
+     -o-user-select:none;
+}
+
+
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background: rgb(131,58,180);
+    background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+}
+.main_container{
+    width: 100vw;
+    height: auto;
+    margin-top: 2%;
+    margin-left: 2%;
+}
+.row{
+    display: grid;
+    text-align: center;
+    font-size: 24px;
+    grid-template-columns: 20% 40% 5% 15% 15% ;
+    grid-template-rows: repeat(1, 72px);
+}
+.cell{
+    border: 2px solid black;
+    border-radius:var(--br);
+    background-color: var(--blue);
+    color: var(--white);
+}
+.clickable:hover {
+    background-color: rgba(20,20,20, 0.8);
+}
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+input[type="number"]
+{
+    font-size:24px;
+    text-align: center;
+    width: 90%;
+    height: auto;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
