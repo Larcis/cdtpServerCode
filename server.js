@@ -72,13 +72,13 @@ app.put('/api/sera/:sera_id', function (request, response) {
         } else {
             sera.name = `${request.params.sera_id} serası`;
         }
-        if(body.temperature){
+        if(body.temperature || body.temperature === 0){
             if(sera.temperature.length == 30){
                 sera.temperature = [];
             }
             sera.temperature.push(body.temperature);
         }
-        if(body.set_point){
+        if(body.set_point || body.set_point === 0){
             if(sera.set_point.length == 30){
                 sera.set_point = [];
             }
@@ -88,7 +88,7 @@ app.put('/api/sera/:sera_id', function (request, response) {
                 id: request.params.sera_id
             });
         }
-        if(body.is_on){
+        if(body.is_on === true || body.is_on === false){
             sera.is_on = body.is_on;
             io.emit("isOn", {
                 is_on: body.is_on,

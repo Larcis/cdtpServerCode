@@ -5,6 +5,19 @@ if (!Array.prototype.last) {
     };
 };
 
+function api_put(id, data){
+    fetch("api/sera/"+id, {
+        method: 'PUT',
+        mode: 'same-origin',
+        cache: 'no-cache',
+        headers: {
+          'Content-Type': 'application/json'
+          //'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: JSON.stringify(data)
+    }).then(res => res.json()).then(s => console.log(s));
+}
+
 var socket = io();
 Vue.use(VueSocketIOExt, socket);
 
@@ -20,17 +33,15 @@ Vue.component('sera', {
         toggleChangeSp(){
             this.change_sp = !this.change_sp;
             if(!this.change_sp){
-                //this.obj.sp
-                //servera istek gonder
+                api_put(this.obj._id, { set_point: this.obj.sp });
             }
-            //console.log(this.change_sp)
         },
         spChanged(e){
-            //console.log(e.target.value);
             this.obj.sp = parseFloat(e.target.value);
         },
         toggleIsOn(){
             this.obj.is_on = !this.obj.is_on
+            api_put(this.obj._id, { is_on: this.obj.is_on });
         }
     },
     template: 
@@ -63,21 +74,21 @@ new Vue({
         },
         temperatureChanged(msg) {
             let idx = this.findIdx(msg.id);
-            console.log("temperatureChanged", idx)
+            //console.log("temperatureChanged", idx)
             if (idx != -1) {
                 this.greenHouses[idx].temp = msg.temperature;
             }
         },
         newSetPoint(msg){
             let idx = this.findIdx(msg.id);
-            console.log("newSetPoint", idx)
+            //console.log("newSetPoint", idx)
             if (idx != -1) {
                 this.greenHouses[idx].sp = msg.set_point;
             }
         },
         isOn(msg){
             let idx = this.findIdx(msg.id);
-            console.log("isOn", idx)
+            //console.log("isOn", idx)
             if (idx != -1) {
                 this.greenHouses[idx].is_on = msg.is_on;
             }
