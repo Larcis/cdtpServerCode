@@ -14,20 +14,25 @@ html, body {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    width: 100vw;
+    height: 100vh;
     /*background: rgb(131,58,180);
     background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);*/
 }
 .main_container{
-    width: 100vw;
+    width: 90vw;
     height: auto;
-    margin-top: 2%;
-    margin-left: 2%;
+    margin-top: 5vh;
+    margin-left: 5vw;
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
 }
 .row{
     display: grid;
     text-align: center;
     font-size: 24px;
-    grid-template-columns: 20% 40% 5% 15% 15% ;
+    width: 90vw;
+    margin-left: 0;
+    grid-template-columns: 20% 40% 5% 15% 20% ;
     grid-template-rows: repeat(1, 72px);
 }
 .cell{

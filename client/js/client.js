@@ -132,6 +132,6 @@ new Vue({
     }
 });
 
-document.getElementById("myInput").onchange = function(){
-    socket.emit('temperatureChanged', {id: "deneme_sera", temperature: parseFloat(document.getElementById('myInput').value)});
-}
+// document.getElementById("myInput").onchange = function(){
+//     socket.emit('temperatureChanged', {id: "deneme_sera", temperature: parseFloat(document.getElementById('myInput').value)});
+// }
