@@ -66,11 +66,11 @@ app.put('/api/sera/:sera_id', function (request, response) {
         if (!sera) {
             sera = new DB();
             sera._id = request.params.sera_id;
-        }
-        if(body.name){
-            sera.name = body.name;
-        } else {
-            sera.name = `${request.params.sera_id} serası`;
+            if(body.name){
+                sera.name = body.name;
+            } else {
+                sera.name = `${request.params.sera_id} serası`;
+            }
         }
         if(body.temperature || body.temperature === 0){
             if(sera.temperature.length == 30){
