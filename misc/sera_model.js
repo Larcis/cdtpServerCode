@@ -6,7 +6,7 @@ var sera_schema = new Schema({
     _id:  String,
     name: String,
     temperature: { type: [Number], default: [] },
-    set_point: { type: [Number], default: [] },
+    set_point: { type: [Number], default: [2] },
     is_on: { type: Boolean, default: true }
 });
 
