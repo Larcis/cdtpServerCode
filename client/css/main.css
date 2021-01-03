@@ -1,6 +1,6 @@
 :root {
-    --blue: #3c5e9e;
-    --white: rgba(255,255,255, 0.75);
+    --blue: #b39f47;
+    --white:black; /*rgba(255,255,255, 0.75);*/
     --br: 0px;
     -moz-user-select: none; 
     -webkit-user-select: none; 
@@ -16,9 +16,24 @@ html, body {
     overflow-x: hidden;
     width: 100vw;
     height: 100vh;
+    background: #136a8a;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #267871, #136a8a);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #267871, #136a8a); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
     /*background: rgb(131,58,180);
     background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);*/
 }
+button{
+    flex:1;
+    height: 100%;
+    background-color:var(--blue);
+    border: none;
+    outline: none !important;
+}
+button:hover{
+    background-color: green;
+}
+
 .main_container{
     width: 90vw;
     height: auto;
@@ -36,10 +51,12 @@ html, body {
     grid-template-rows: repeat(1, 72px);
 }
 .cell{
-    border: 2px solid black;
+    border: 1px solid black;
     border-radius:var(--br);
     background-color: var(--blue);
     color: var(--white);
+
+    text-shadow: 0 4px 8px  rgba(0, 0, 0, 0.56);
 }
 .clickable:hover {
     background-color: rgba(20,20,20, 0.8);
@@ -55,7 +72,8 @@ input[type="number"]
     font-size:24px;
     text-align: center;
     width: 90%;
-    height: auto;
+    flex:3;
+    height: 90%;
 }
 
 ::-webkit-scrollbar {

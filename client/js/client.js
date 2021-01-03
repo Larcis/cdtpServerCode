@@ -49,12 +49,12 @@ Vue.component('sera', {
             <div class="cell center" v-html="obj._id"></div>
             <div class="cell center" v-html="obj.name"></div>
             <div class="cell center" >
-                <i @click="toggleIsOn" v-if="obj.is_on==false" class="fas fa-power-off fa-lg" style="color: orange;"></i>
-                <i @click="toggleIsOn" v-else class="fas fa-power-off fa-lg" style="color: lightgreen;"></i>
+                <i @click="toggleIsOn" v-if="obj.is_on==false" class="fas fa-power-off fa-lg" style="color: red;"></i>
+                <i @click="toggleIsOn" v-else class="fas fa-power-off fa-lg" style="color: green;"></i>
             </div>
             <div class="cell center" style="flex-direction:row;display:flex;">
-                <input @change="spChanged" v-bind:disabled="!change_sp" type="number" v-bind:value="obj.sp" style="flex:3;height: 90%;"/>
-                <button @click="toggleChangeSp()" style="flex:1;height: 100%;background-color:var(--blue);"><i style="color:  var(--white);" class="far fa-edit fa-lg"></i></button>
+                <input @change="spChanged" v-bind:disabled="!change_sp" type="number" v-bind:value="obj.sp"/>
+                <button @click="toggleChangeSp()"><i style="color:  var(--white);" class="far fa-edit fa-lg"></i></button>
             </div>
             <div class="cell center" v-html="obj.temp"></div>
         <div>`
